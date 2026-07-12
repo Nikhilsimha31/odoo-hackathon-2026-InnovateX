@@ -1,4 +1,4 @@
-import React from 'react';
+
 import styles from './StampBadge.module.css';
 
 export type StampState = 'available' | 'allocated' | 'reserved' | 'pending' | 'rejected' | 'retired';

@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import TagCard from './TagCard';
-import StampBadge, { StampState } from './StampBadge';
+import StampBadge, { type StampState } from './StampBadge';
 import styles from './Dashboard.module.css';
 
 interface Category {
