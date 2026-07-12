@@ -1,0 +1,210 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+
+:root {
+  /* Colors - State */
+  --color-available: #639922;
+  --color-allocated: #378ADD;
+  --color-reserved: #7F77DD;
+  --color-pending: #BA7517;
+  --color-rejected: #E24B4A;
+  --color-retired: #888780;
+
+  /* Colors - Surface & Ink */
+  --color-ink: #2C2C2A;
+  --color-paper: #F7F6F1;
+  --color-white: #FFFFFF;
+
+  --font-sans: 'Calibri', 'Inter', system-ui, sans-serif;
+  --font-mono: 'Consolas', 'Courier New', monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 {
+  font-weight: 700;
+}
+
+h1 { font-size: 32px; }
+h2 { font-size: 26px; margin-bottom: 24px; }
+
+/* Layout */
+.app-header {
+  background-color: var(--color-white);
+  padding: 16px 32px;
+  border-bottom: 1px solid rgba(44, 44, 42, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+nav {
+  display: flex;
+  gap: 16px;
+}
+
+.nav-item {
+  background: none;
+  border: none;
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-ink);
+  opacity: 0.6;
+  cursor: pointer;
+  padding: 8px 16px;
+}
+
+.nav-item.active {
+  opacity: 1;
+  border-bottom: 3px solid var(--color-ink);
+}
+
+#app-content {
+  padding: 32px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.view {
+  display: none;
+}
+
+.view.active {
+  display: block;
+}
+
+/* Core Component: Tag Card */
+.tag-card {
+  position: relative;
+  background-color: var(--color-white);
+  border-radius: 0 12px 12px 12px;
+  padding: 24px;
+  box-shadow: 0 4px 8px rgba(44, 44, 42, 0.08);
+  border: 1px solid rgba(44, 44, 42, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+.tag-card::before {
+  content: '';
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  width: 12px;
+  height: 12px;
+  background-color: var(--color-paper);
+  border-radius: 50%;
+  box-shadow: inset 0 2px 4px rgba(44, 44, 42, 0.15);
+}
+
+/* Core Component: Stamp Badge */
+.stamp-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border: 2px solid;
+  border-radius: 4px;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 14px;
+  transform: rotate(-5deg);
+  opacity: 0.9;
+  background: transparent;
+  box-shadow: 0 0 1px inset currentcolor;
+  align-self: flex-start;
+}
+
+.stamp-available { color: var(--color-available); border-color: var(--color-available); }
+.stamp-allocated { color: var(--color-allocated); border-color: var(--color-allocated); }
+.stamp-reserved { color: var(--color-reserved); border-color: var(--color-reserved); }
+.stamp-pending { color: var(--color-pending); border-color: var(--color-pending); }
+.stamp-rejected { color: var(--color-rejected); border-color: var(--color-rejected); }
+.stamp-retired { color: var(--color-retired); border-color: var(--color-retired); }
+
+/* Dashboard layout */
+.kpi-row {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 32px;
+  overflow-x: auto;
+  padding-bottom: 16px;
+}
+
+.kpi-card {
+  min-width: 200px;
+}
+
+.kpi-card .number {
+  font-size: 36px;
+  font-weight: 700;
+  margin-top: 16px;
+}
+
+.actions-row {
+  display: flex;
+  gap: 16px;
+}
+
+.action-btn {
+  background-color: var(--color-white);
+  border: 2px solid var(--color-ink);
+  color: var(--color-ink);
+  padding: 12px 24px;
+  border-radius: 0 12px 12px 12px; /* Tag shaped */
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
+  position: relative;
+}
+
+.action-btn::before {
+  content: '';
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  width: 6px;
+  height: 6px;
+  background-color: var(--color-paper);
+  border-radius: 50%;
+  box-shadow: inset 0 1px 2px rgba(44, 44, 42, 0.2);
+}
+
+.action-btn:hover {
+  background-color: rgba(44, 44, 42, 0.05);
+}
+
+/* Asset Registry */
+.asset-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.asset-tag {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.asset-name {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}

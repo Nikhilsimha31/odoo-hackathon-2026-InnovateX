@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AssetFlow - Asset & Resource Management</title>
+  <meta name="description" content="Enterprise Asset & Resource Management System">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="app-header">
+    <h1>AssetFlow</h1>
+    <nav>
+      <button class="nav-item active" data-view="dashboard">Dashboard</button>
+      <button class="nav-item" data-view="assets">Asset Registry</button>
+    </nav>
+  </header>
+
+  <main id="app-content">
+    <!-- Dashboard View -->
+    <section id="view-dashboard" class="view active">
+      <h2>Dashboard</h2>
+      <div class="kpi-row" id="kpi-container">
+        <!-- KPI Tags will be injected here -->
+      </div>
+      <div class="actions-row">
+        <button class="action-btn">Register Asset</button>
+        <button class="action-btn">Book Resource</button>
+        <button class="action-btn">Raise Maintenance Request</button>
+      </div>
+    </section>
+
+    <!-- Asset Registry View -->
+    <section id="view-assets" class="view">
+      <h2>Asset Registry</h2>
+      <div class="asset-grid" id="asset-container">
+        <!-- Asset Tag Cards will be injected here -->
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
