@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "start": "node server.js",
-    "dev": "node server.js"
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "node server.js",
+    "client": "cd client && npm run dev"
   },
   "dependencies": {
     "cors": "^2.8.6",
@@ -12,6 +14,7 @@
   },
   "devDependencies": {
     "@prisma/client": "^5.22.0",
+    "concurrently": "^10.0.3",
     "prisma": "^5.22.0"
   }
 }
