@@ -137,12 +137,14 @@ export default function AssetActionForm({
     fontSize: '14px',
   });
 
+    const qrValue = `AssetFlow Registry\nTag: ${assetTag}\nStatus: ${currentStatus}\nDepartment: ${departmentName || 'Unassigned'}`;
+
   return (
     <div>
       {/* Top: QR Code + Info */}
       <div style={{ display: 'flex', gap: '24px', marginBottom: '24px' }}>
         <div style={{ padding: '16px', border: '1px solid var(--color-border)', borderRadius: '8px', textAlign: 'center', backgroundColor: 'var(--color-card)' }}>
-          <QRCodeSVG value={assetTag} size={100} />
+          <QRCodeSVG value={qrValue} size={100} />
           <p style={{ marginTop: '8px', fontFamily: 'var(--font-mono)', fontSize: '13px', fontWeight: 'bold' }}>{assetTag}</p>
         </div>
         <div style={{ flex: 1 }}>
