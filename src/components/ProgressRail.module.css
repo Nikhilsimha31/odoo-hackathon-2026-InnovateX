@@ -1,0 +1,52 @@
+.progressRail {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  margin: 16px 0;
+}
+
+.progressRail::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: rgba(44, 44, 42, 0.1);
+  z-index: 1;
+}
+
+.stage {
+  position: relative;
+  z-index: 2;
+  background-color: var(--color-white); /* Mask the line behind text */
+  padding: 4px 8px;
+  color: var(--color-retired);
+  font-family: var(--font-sans);
+  font-size: 14px;
+}
+
+.stageReached {
+  color: var(--color-available);
+  font-weight: 700;
+  border: 2px solid var(--color-available);
+  border-radius: 4px;
+  transform: rotate(-3deg);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 12px;
+  box-shadow: 0 0 1px inset currentcolor;
+}
+
+.stageCurrent {
+  color: var(--color-pending);
+  font-weight: 700;
+  border: 2px solid var(--color-pending);
+  border-radius: 4px;
+  transform: rotate(-4deg);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 12px;
+  box-shadow: 0 0 1px inset currentcolor;
+}

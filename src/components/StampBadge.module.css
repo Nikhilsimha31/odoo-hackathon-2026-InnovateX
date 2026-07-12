@@ -1,0 +1,48 @@
+.stampBadge {
+  display: inline-block;
+  padding: 4px 12px;
+  border: 2px solid;
+  border-radius: 4px;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 14px;
+  transform: rotate(-5deg);
+  opacity: 0.9;
+  background: transparent;
+  user-select: none;
+  /* Slight irregular shadow to simulate stamping pressure */
+  box-shadow: 0 0 1px inset currentcolor;
+}
+
+/* State color modifiers */
+.available {
+  color: var(--color-available);
+  border-color: var(--color-available);
+}
+
+.allocated {
+  color: var(--color-allocated);
+  border-color: var(--color-allocated);
+}
+
+.reserved {
+  color: var(--color-reserved);
+  border-color: var(--color-reserved);
+}
+
+.pending {
+  color: var(--color-pending);
+  border-color: var(--color-pending);
+}
+
+.rejected {
+  color: var(--color-rejected);
+  border-color: var(--color-rejected);
+}
+
+.retired {
+  color: var(--color-retired);
+  border-color: var(--color-retired);
+}

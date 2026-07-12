@@ -1,26 +1,63 @@
-@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Colors - State */
+  --color-available: #639922;
+  --color-allocated: #378ADD;
+  --color-reserved: #7F77DD;
+  --color-pending: #BA7517;
+  --color-rejected: #E24B4A;
+  --color-retired: #888780;
+
+  /* Colors - Surface & Ink */
+  --color-ink: #2C2C2A;
+  --color-paper: #F7F6F1;
+  --color-white: #FFFFFF;
+
+  /* Typography fallback if Calibri isn't available */
+  --font-sans: 'Calibri', 'Inter', system-ui, sans-serif;
+  --font-mono: 'Consolas', 'Courier New', monospace;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
 }
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  color: var(--color-ink);
+}
+
+h1 {
+  font-size: 32px;
+  margin-bottom: 24px;
+}
+
+h2 {
+  font-size: 26px;
+  margin-bottom: 16px;
+}
+
+/* Base utility for interactive elements to ensure accessibility */
+button, a {
+  cursor: pointer;
+}
+
+button:focus-visible, a:focus-visible, input:focus-visible {
+  outline: 2px solid var(--color-allocated);
+  outline-offset: 2px;
+}
+
+/* Remove tailwind default stuff */

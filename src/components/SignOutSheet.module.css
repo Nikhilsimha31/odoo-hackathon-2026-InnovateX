@@ -1,0 +1,56 @@
+.signOutSheet {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-paper);
+  border: 1px solid rgba(44, 44, 42, 0.1);
+  border-radius: 4px;
+  padding: 16px;
+}
+
+.row {
+  display: flex;
+  align-items: stretch;
+  min-height: 48px;
+}
+
+.timeCol {
+  width: 100px;
+  color: var(--color-ink);
+  opacity: 0.7;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  padding: 12px 16px 12px 0;
+  text-align: right;
+  border-right: 2px solid rgba(44, 44, 42, 0.2); /* Ledger line */
+}
+
+.entryCol {
+  flex: 1;
+  padding: 8px 0 8px 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.blockBooked {
+  background-color: rgba(55, 138, 221, 0.1);
+  border-left: 4px solid var(--color-allocated);
+  padding: 8px 12px;
+  border-radius: 0 4px 4px 0;
+  color: var(--color-ink);
+  font-weight: bold;
+}
+
+.blockOpen {
+  border: 2px dashed rgba(44, 44, 42, 0.2);
+  border-radius: 4px;
+  padding: 6px 12px;
+  color: rgba(44, 44, 42, 0.5);
+  font-style: italic;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.blockOpen:hover {
+  background-color: rgba(44, 44, 42, 0.05);
+}
