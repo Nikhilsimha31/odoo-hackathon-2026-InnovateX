@@ -1,0 +1,40 @@
+.stampBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 12px;
+  border: 2px solid;
+  border-radius: 4px;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  font-size: 13px;
+  transform: rotate(-5deg);
+  opacity: 0.9;
+  background: transparent;
+  user-select: none;
+  box-shadow: 0 0 1px inset currentcolor;
+  align-self: flex-start;
+  /* Stamping animation */
+  animation: stampIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes stampIn {
+  0% {
+    transform: rotate(0deg) scale(1.5);
+    opacity: 0;
+  }
+  100% {
+    transform: rotate(-5deg) scale(1);
+    opacity: 0.9;
+  }
+}
+
+/* State color modifiers */
+.available { color: var(--color-available); border-color: var(--color-available); }
+.allocated { color: var(--color-allocated); border-color: var(--color-allocated); }
+.reserved { color: var(--color-reserved); border-color: var(--color-reserved); }
+.pending { color: var(--color-pending); border-color: var(--color-pending); }
+.rejected { color: var(--color-rejected); border-color: var(--color-rejected); }
+.retired { color: var(--color-retired); border-color: var(--color-retired); }
