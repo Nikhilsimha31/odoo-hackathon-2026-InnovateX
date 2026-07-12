@@ -1,0 +1,52 @@
+.formGroup {
+  margin-bottom: 20px;
+}
+
+.label {
+  display: block;
+  font-weight: 700;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.input, .select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid rgba(44, 44, 42, 0.2);
+  border-radius: 4px;
+  font-family: var(--font-sans);
+  font-size: 16px;
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.input:focus, .select:focus {
+  outline: none;
+  border-color: var(--color-allocated);
+  box-shadow: 0 0 0 3px rgba(55, 138, 221, 0.2);
+}
+
+.submitBtn {
+  background-color: var(--color-ink);
+  color: var(--color-white);
+  border: none;
+  padding: 12px 24px;
+  border-radius: 0 8px 8px 8px;
+  font-weight: 700;
+  font-size: 16px;
+  width: 100%;
+  margin-top: 16px;
+  transition: transform 0.2s, background-color 0.2s;
+}
+
+.submitBtn:hover {
+  background-color: #000;
+  transform: translateY(-2px);
+}
+
+.submitBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
