@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
 import TagCard from './TagCard';
 import StampBadge, { type StampState } from './StampBadge';
+import Modal from './Modal';
+import RegisterAssetForm from './RegisterAssetForm';
+import AssetActionForm from './AssetActionForm';
 import styles from './Dashboard.module.css';
 
 interface Category {
@@ -20,7 +23,11 @@ export default function Dashboard() {
   const [assets, setAssets] = useState<Asset[]>([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
+  // Modal states
+  const [isRegisterOpen, setIsRegisterOpen] = useState(false);
+  const [selectedAsset, setSelectedAsset] = useState<Asset | null>(null);
+
+  const fetchAssets = () => {
     fetch('http://localhost:3000/api/assets')
       .then(res => res.json())
       .then(data => {
@@ -31,7 +38,21 @@ export default function Dashboard() {
         console.error("Failed to fetch assets", err);
         setLoading(false);
       });
+  };
+
+  useEffect(() => {
+    fetchAssets();
   }, []);
+
+  const handleRegisterSuccess = () => {
+    setIsRegisterOpen(false);
+    fetchAssets();
+  };
+
+  const handleActionSuccess = () => {
+    setSelectedAsset(null);
+    fetchAssets();
+  };
 
   const getStampState = (status: string): StampState => {
     const map: Record<string, StampState> = {
@@ -56,7 +77,9 @@ export default function Dashboard() {
       <div className={styles.header}>
         <h1>AssetFlow</h1>
         <div className={styles.actionsRow} style={{ marginBottom: 0 }}>
-          <button className={styles.actionBtn}>Register Asset</button>
+          <button className={styles.actionBtn} onClick={() => setIsRegisterOpen(true)}>
+            Register Asset
+          </button>
         </div>
       </div>
 
@@ -64,7 +87,7 @@ export default function Dashboard() {
       <div className={styles.kpiRow}>
         {kpis.map(kpi => (
           <TagCard key={kpi.label} className={styles.kpiCard}>
-            <StampBadge state={kpi.state} label={kpi.label} />
+            <StampBadge state={kpi.state} label={kpi.label} keyStr={`${kpi.label}-${kpi.count}`} />
             <div className={styles.kpiNumber}>
               {loading ? '-' : kpi.count}
             </div>
@@ -78,9 +101,10 @@ export default function Dashboard() {
       ) : (
         <div className={styles.assetGrid}>
           {assets.map(asset => (
-            <TagCard key={asset.id}>
+            <TagCard key={asset.id} onClick={() => setSelectedAsset(asset)}>
               <div className={styles.assetTag}>
                 <span>{asset.tag}</span>
+                <span style={{ fontSize: 12, opacity: 0.5 }}>Click to manage</span>
               </div>
               <div className={styles.assetName}>{asset.name}</div>
               <div className={styles.assetCategory}>{asset.category?.name || 'Uncategorized'}</div>
@@ -89,12 +113,35 @@ export default function Dashboard() {
               
               <StampBadge 
                 state={getStampState(asset.status)} 
-                label={asset.status} 
+                label={asset.status}
+                keyStr={`${asset.id}-${asset.status}`} 
               />
             </TagCard>
           ))}
         </div>
       )}
+
+      <Modal 
+        isOpen={isRegisterOpen} 
+        onClose={() => setIsRegisterOpen(false)} 
+        title="Register New Asset"
+      >
+        <RegisterAssetForm onSuccess={handleRegisterSuccess} />
+      </Modal>
+
+      <Modal 
+        isOpen={!!selectedAsset} 
+        onClose={() => setSelectedAsset(null)} 
+        title={`Manage ${selectedAsset?.name}`}
+      >
+        {selectedAsset && (
+          <AssetActionForm 
+            assetId={selectedAsset.id} 
+            currentStatus={selectedAsset.status} 
+            onSuccess={handleActionSuccess} 
+          />
+        )}
+      </Modal>
     </div>
   );
 }
