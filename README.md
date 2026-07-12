@@ -1,40 +1,106 @@
-# AssetFlow - Odoo Hackathon 2026 InnovateX
+# AssetFlow — Enterprise Asset & Resource Management System
 
-Hey everyone! This is my project for the Odoo Hackathon 2026 InnovateX. It's called AssetFlow and it helps you track and manage company assets. 
+Hey! This is **AssetFlow**, my project for the **Odoo Hackathon 2026 InnovateX**. It's a full-stack web app that helps companies track, manage, and maintain all their physical assets — from laptops and projectors to office furniture. Everything runs locally with no cloud dependency!
 
-I started with a basic setup and ended up building a complex dashboard with a super UI! Everything works end-to-end, from the frontend all the way to the local database.
+---
 
-## What I Built (Step-by-Step)
+## What Makes This Project Different
 
-* **Super UI / UX:** The design is based directly on the strict "Tag-and-Stamp" design spec. It's not just a basic HTML file! I used React (Vite) to make the dashboard fast and complex. I also added cool micro-animations—so when you hover over cards or change a status, it actually feels like a physical stamp hitting the screen.
-* **Working Functionality:** The dashboard is fully functional. You can click "Register Asset" to add new items to the database instantly. You can also click on any asset to change its status (like allocating it to someone or sending it for maintenance). The UI updates in real-time.
-* **Creative Features (Physical Bridge & Audit Trail):** 
-  * **Dynamic QR Codes:** Every asset automatically generates a unique, scan-able QR Code in the dashboard. 
-  * **Asset Journey Timeline:** A beautiful vertical timeline tracks the entire history of an asset (when it was registered, allocated, maintained, etc.) right inside the modal.
-* **Local Database Setup:** Because we shouldn't rely on cloud tools or internet for this hackathon, I set up a local offline SQLite database using Prisma. 
-* **Backend APIs:** I created a Node.js Express backend to connect the React UI to the local database.
+Most hackathon asset trackers are just CRUD tables. AssetFlow goes way beyond that:
 
-## Tech Stack Used
-* **Frontend:** React, Vite, CSS
-* **Backend:** Node.js, Express
-* **Database:** SQLite (local offline), Prisma ORM
+- **Tag-and-Stamp Design System** — Every card looks like a physical asset tag, and status changes trigger a real stamping animation
+- **Depreciation Calculator** — Automatically calculates asset value over time using straight-line depreciation (the same method real accounting teams use)
+- **QR Code Generator** — Every asset gets a unique scan-able QR code, bridging the gap between digital and physical
+- **Kanban Board** — Toggle between Grid and Board view to manage assets visually, just like Jira or Trello
+- **Dark Mode** — One-click theme toggle that remembers your preference
 
-## How to run the project
+---
 
-It is really easy to test this out. Just open your terminal and follow these steps:
+## All Features
 
-1. Install the required packages:
+### Core Functionality
+- **Asset Registration** — Register new assets with auto-generated tag IDs (AF-0001, AF-0002...)
+- **Lifecycle Management** — Allocate assets to employees, return them, or send them for maintenance
+- **Department Transfer** — Move assets between Engineering, Marketing, HR, Finance, and Operations with full audit logging
+- **Maintenance Scheduling** — Submit maintenance requests with descriptions and priority levels (Low / Medium / High)
+
+### Analytics & Monitoring
+- **KPI Dashboard** — Real-time cards showing Total Assets, Allocated, Available, and Maintenance counts
+- **Donut Chart** — Interactive status breakdown chart powered by Recharts
+- **Utilization Rate** — Shows what percentage of your assets are currently allocated
+- **Overdue Return Alerts** — Red banner warns when assets haven't been returned in 30+ days
+- **Asset Health Score** — Dynamic 0–100 score on every card (Good / Fair / Poor) based on status and age
+
+### Creative / Enterprise Features
+- **QR Code Generator** — Unique QR code for every asset tag
+- **Asset Journey Timeline** — Full audit trail tracking every action (registered, allocated, transferred, maintained)
+- **Depreciation Calculator** — Enter purchase cost + useful life, and the app auto-calculates current value with an animated progress bar
+- **CSV Export** — Download all asset data as a spreadsheet in one click
+- **Live Notifications Feed** — Bell icon with unread count badge, opens a slide-in drawer showing recent activity across all assets
+- **Keyboard Shortcuts** — `/` to search, `R` to register, `K` to toggle board view, `Esc` to clear
+
+---
+
+## Tech Stack
+| Layer | Technology |
+|---|---|
+| Frontend | React, TypeScript, Vite |
+| Styling | Vanilla CSS Modules (no Tailwind) |
+| Backend | Node.js, Express.js |
+| Database | SQLite (local, offline) |
+| ORM | Prisma |
+| Charts | Recharts |
+| QR Codes | qrcode.react |
+
+---
+
+## How to Run Locally
+
+It's really simple. No cloud setup needed!
+
 ```bash
+# 1. Install all packages
 npm install
 cd client && npm install
 cd ..
-```
 
-2. Run both the backend and frontend at the same time using this one command:
-```bash
+# 2. Run both backend + frontend with one command
 npm run dev
 ```
 
-3. Open the link it gives you in the terminal (usually `http://localhost:5173` or `5174`) and the dashboard will load up!
+Open the link shown in your terminal (usually `http://localhost:5173`) and the dashboard loads up!
 
-*(Optional: If you want to connect to the database directly and see the tables, just run `npx prisma studio` in your terminal!)*
+### Optional: View the Database
+```bash
+npx prisma studio
+```
+Opens a visual database browser at `http://localhost:5555` where you can see all the tables and data.
+
+---
+
+## Project Structure
+```
+oddo/
+├── server.js              # Express backend with all API routes
+├── prisma/
+│   └── schema.prisma      # Database schema (10 models)
+├── seed.js                # Seeds initial assets + categories
+├── client/                # React (Vite) frontend
+│   └── src/
+│       ├── App.tsx        # Root app with dark mode state
+│       └── components/
+│           ├── Dashboard.tsx         # Main dashboard with KPIs, charts, grid, kanban
+│           ├── Navbar.tsx            # Top nav with dark mode + notifications
+│           ├── TagCard.tsx           # Tag-and-Stamp card component
+│           ├── StampBadge.tsx        # Animated status stamp
+│           ├── HealthBar.tsx         # Asset health score bar
+│           ├── StatusChart.tsx       # Donut chart (Recharts)
+│           ├── Modal.tsx             # Reusable animated modal
+│           ├── RegisterAssetForm.tsx # Form with cost + department
+│           └── AssetActionForm.tsx   # Actions, depreciation, transfer, timeline
+└── package.json
+```
+
+---
+
+Built with ❤️ for the Odoo Hackathon 2026 by **Team InnovateX**
