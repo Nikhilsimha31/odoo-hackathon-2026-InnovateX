@@ -4,7 +4,7 @@ import styles from './TagCard.module.css';
 interface TagCardProps {
   children: React.ReactNode;
   className?: string;
-  onClick?: () => void;
+  onClick?: (e: React.MouseEvent<HTMLDivElement>) => void;
 }
 
 export default function TagCard({ children, className = '', onClick }: TagCardProps) {

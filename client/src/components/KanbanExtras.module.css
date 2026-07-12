@@ -1,0 +1,166 @@
+.viewToggle {
+  display: flex;
+  gap: 4px;
+  background-color: var(--color-border);
+  border-radius: 8px;
+  padding: 4px;
+}
+
+.viewBtn {
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-muted);
+  transition: all 0.2s;
+  border: none;
+  background: transparent;
+}
+
+.viewBtnActive {
+  background-color: var(--color-card);
+  color: var(--color-ink);
+  box-shadow: 0 1px 4px var(--color-shadow);
+}
+
+/* Kanban Board */
+.kanban {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  padding-bottom: 24px;
+}
+
+.kanbanCol {
+  min-width: 280px;
+  flex-shrink: 0;
+  background-color: var(--color-border);
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.kanbanColHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.kanbanColTitle {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.kanbanCount {
+  background-color: var(--color-card);
+  border-radius: 12px;
+  padding: 2px 8px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.kanbanCards {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 80px;
+}
+
+.kanbanCard {
+  background-color: var(--color-card);
+  border-radius: 0 10px 10px 10px;
+  padding: 14px 16px;
+  box-shadow: 0 2px 6px var(--color-shadow);
+  border: 1px solid var(--color-border);
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.kanbanCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px var(--color-shadow);
+}
+
+.kanbanTag {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  opacity: 0.5;
+  margin-bottom: 6px;
+}
+
+.kanbanName {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-ink);
+  margin-bottom: 4px;
+}
+
+.kanbanCat {
+  font-size: 12px;
+  opacity: 0.6;
+}
+
+/* Shortcut hint */
+.shortcutHint {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background-color: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 14px 18px;
+  box-shadow: 0 4px 20px var(--color-shadow);
+  font-size: 12px;
+  color: var(--color-muted);
+  z-index: 50;
+  animation: fadeUp 0.4s ease;
+  max-width: 220px;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.shortcutRow {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 6px;
+}
+
+.shortcutRow:last-child { margin-bottom: 0; }
+
+kbd {
+  background-color: var(--color-border);
+  border: 1px solid var(--color-muted);
+  border-radius: 4px;
+  padding: 1px 6px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--color-ink);
+}
+
+/* Export button */
+.exportBtn {
+  background-color: var(--color-card);
+  border: 1px solid var(--color-border);
+  color: var(--color-ink);
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s;
+  box-shadow: 0 1px 4px var(--color-shadow);
+}
+
+.exportBtn:hover {
+  background-color: var(--color-ink);
+  color: var(--color-paper);
+  transform: translateY(-1px);
+}
