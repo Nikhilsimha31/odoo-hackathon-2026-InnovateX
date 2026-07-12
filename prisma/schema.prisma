@@ -1,0 +1,169 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Department {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  isActive  Boolean  @default(true)
+  users     User[]
+  assets    Asset[]  @relation("DepartmentAssets") // Allocated to department
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model AssetCategory {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  assets    Asset[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model User {
+  id             String       @id @default(cuid())
+  email          String       @unique
+  password       String
+  name           String
+  role           String       @default("Employee") // Employee, Department Head, Asset Manager, Admin
+  isActive       Boolean      @default(true)
+  
+  departmentId   String?
+  department     Department?  @relation(fields: [departmentId], references: [id])
+  
+  allocations    Allocation[] @relation("UserAllocations")
+  bookings       Booking[]
+  maintenanceReq MaintenanceRequest[]
+  activities     ActivityLog[]
+  auditCycles    AuditCycle[]
+
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+}
+
+model Asset {
+  id              String       @id @default(cuid())
+  tag             String       @unique // e.g. AF-0001
+  name            String
+  serialNumber    String?
+  acquisitionDate DateTime?
+  acquisitionCost Float?
+  condition       String       @default("Good")
+  location        String?
+  status          String       @default("Available") // Available, Allocated, Reserved, Under Maintenance, Lost, Retired, Disposed
+  isBookable      Boolean      @default(false)
+  
+  categoryId      String
+  category        AssetCategory @relation(fields: [categoryId], references: [id])
+  
+  allocations     Allocation[]
+  bookings        Booking[]
+  maintenanceReqs MaintenanceRequest[]
+  auditItems      AuditItem[]
+
+  // Optional: Currently allocated to department (if not a user)
+  allocatedToDeptId String?
+  allocatedToDept   Department? @relation("DepartmentAssets", fields: [allocatedToDeptId], references: [id])
+
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+}
+
+model Allocation {
+  id             String    @id @default(cuid())
+  assetId        String
+  asset          Asset     @relation(fields: [assetId], references: [id])
+  
+  userId         String
+  user           User      @relation("UserAllocations", fields: [userId], references: [id])
+  
+  expectedReturn DateTime?
+  actualReturn   DateTime?
+  status         String    @default("Active") // Active, Returned, Overdue
+  checkInNotes   String?
+
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+}
+
+model Booking {
+  id          String   @id @default(cuid())
+  assetId     String
+  asset       Asset    @relation(fields: [assetId], references: [id])
+  
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
+  
+  startTime   DateTime
+  endTime     DateTime
+  status      String   @default("Upcoming") // Upcoming, Ongoing, Completed, Cancelled
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model MaintenanceRequest {
+  id          String   @id @default(cuid())
+  assetId     String
+  asset       Asset    @relation(fields: [assetId], references: [id])
+  
+  reporterId  String
+  reporter    User     @relation(fields: [reporterId], references: [id])
+  
+  description String
+  priority    String   @default("Low") // Low, Medium, High
+  status      String   @default("Pending") // Pending, Approved, Rejected, In Progress, Resolved
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model AuditCycle {
+  id          String      @id @default(cuid())
+  name        String
+  startDate   DateTime
+  endDate     DateTime
+  status      String      @default("Open") // Open, Closed
+  
+  auditorId   String
+  auditor     User        @relation(fields: [auditorId], references: [id])
+  
+  items       AuditItem[]
+
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+}
+
+model AuditItem {
+  id           String      @id @default(cuid())
+  auditCycleId String
+  auditCycle   AuditCycle  @relation(fields: [auditCycleId], references: [id])
+  
+  assetId      String
+  asset        Asset       @relation(fields: [assetId], references: [id])
+  
+  status       String      @default("Pending") // Pending, Verified, Missing, Damaged
+
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+}
+
+model ActivityLog {
+  id          String   @id @default(cuid())
+  action      String
+  entityType  String
+  entityId    String
+  details     String?
+  
+  actorId     String
+  actor       User     @relation(fields: [actorId], references: [id])
+
+  createdAt   DateTime @default(now())
+}
